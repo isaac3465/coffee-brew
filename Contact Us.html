@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact Us - Coffee Brew</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #6f4f1e; /* Coffee color */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative; /* Ensure the Home button is positioned correctly */
+        }
+
+        header .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: white;
+            color: #6f4f1e;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            border: 2px solid #6f4f1e;
+            font-weight: bold;
+        }
+
+        header .home-button:hover {
+            background-color: #6f4f1e;
+            color: white;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+        }
+
+        h1, h2 {
+            color: #6f4f1e;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-submit {
+            background-color: #6f4f1e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-submit:hover {
+            background-color: #5e3d19;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+        }
+
+        .contact-info p {
+            font-size: 16px;
+        }
+
+        footer {
+            background-color: #6f4f1e;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/" class="home-button">&larr; Home</a>
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you! Whether you have a question, feedback, or just want to chat, we're here to help.</p>
+    </header>
+
+    <section class="container">
+        <h2>Contact Form</h2>
+        <form action="/submit_contact_form" method="POST">
+            <input type="text" name="name" class="form-input" placeholder="Your Name" required>
+            <input type="email" name="email" class="form-input" placeholder="Your Email" required>
+            <input type="text" name="subject" class="form-input" placeholder="Subject" required>
+            <textarea name="message" class="form-input" placeholder="Your Message" rows="6" required></textarea>
+            <button type="submit" class="form-submit">Send Message</button>
+        </form>
+    </section>
+
+    <section class="container contact-info">
+        <h2>Our Contact Information</h2>
+        <p><strong>Address:</strong> 123 Coffee Lane, Brew City, BC 54321</p>
+        <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+        <p><strong>Email:</strong> contact@coffeebrew.com</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Coffee Brew | All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>
