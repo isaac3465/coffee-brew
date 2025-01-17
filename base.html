@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Brew</title>
+    <style>
+        :root {
+            --background-color: white;
+            --text-color: black;
+            --nav-bg-color: #6F4E37;
+            --nav-text-color: white;
+            --btn-bg-color: #6F4E37;
+            --btn-hover-bg-color: #5A3C2A;
+            --footer-bg-color: #6F4E37;
+        }
+
+        [data-theme="dark"] {
+            --background-color: #121212;
+            --text-color: white;
+            --nav-bg-color: #333;
+            --nav-text-color: white;
+            --btn-bg-color: #444;
+            --btn-hover-bg-color: #666;
+            --footer-bg-color: #333;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        nav {
+            background-color: var(--nav-bg-color);
+            color: var(--nav-text-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        nav a {
+            color: var(--nav-text-color);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-content {
+            display: none;
+            position: absolute;
+            background-color: var(--nav-bg-color);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .menu:hover .menu-content {
+            display: block;
+        }
+
+        .menu-content a {
+            color: var(--nav-text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .menu-content a:hover {
+            background-color: var(--btn-hover-bg-color);
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: var(--footer-bg-color);
+            color: var(--nav-text-color);
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .btn {
+            background-color: var(--btn-bg-color);
+            color: var(--nav-text-color);
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: var(--btn-hover-bg-color);
+        }
+
+        .dark-mode-btn, .font-btn, .cart-btn {
+            background-color: transparent;
+            color: var(--nav-text-color);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 15px;
+        }
+
+        .dark-mode-btn:hover, .font-btn:hover {
+            text-decoration: underline;
+        }
+
+        .cart-btn {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <a href="/">Coffee Brew</a>
+        </div>
+        <div>
+            <div class="menu">
+                <a href="#">Menu</a>
+                <div class="menu-content">
+                    <a href="/">Home</a>
+                    <a href="/menu">Menu</a>
+                    <a href="/about">About Us</a>
+                    <a href="/contact">Contact Us</a>
+                </div>
+            </div>
+            {% if 'user_id' in session %}
+                <span>Welcome, {{ session['username'] }}</span>
+                <a class="btn" href="/logout">Logout</a>
+                <a class="btn" href="/order">Order</a>
+            {% else %}
+                <a class="btn" href="/login">Login</a>
+                <a class="btn" href="/register">Register</a>
+            {% endif %}
+            <button class="dark-mode-btn" id="darkModeToggle">Dark Mode</button>
+            <button class="font-btn" id="fontToggle">Change Font</button>
+            <button class="cart-btn" id="cartButton">Cart (0)</button>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <p>&copy; 2025 Coffee Brew. All rights reserved.</p>
+    </footer>
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const fontToggle = document.getElementById('fontToggle');
+        const body = document.body;
+        const cartButton = document.getElementById('cartButton');
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Check local storage for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.setAttribute('data-theme', savedTheme);
+            darkModeToggle.textContent = savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        }
+
+        // Toggle dark mode on button click
+        darkModeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            darkModeToggle.textContent = newTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Font Toggle Function
+        fontToggle.addEventListener('click', () => {
+            if (body.style.fontFamily === 'Arial, sans-serif') {
+                body.style.fontFamily = 'Courier New, Courier, monospace';
+            } else {
+                body.style.fontFamily = 'Arial, sans-serif';
+            }
+        });
+
+        // Cart button updates
+        function updateCartButton() {
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            cartButton.textContent = `Cart (${cartCount})`;
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        updateCartButton();
+    </script>
+</body>
+</html>
