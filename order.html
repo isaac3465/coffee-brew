@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Order Your Favorite Coffee</h1>
+    <form method="POST">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Espresso</td>
+                    <td>$2.50</td>
+                    <td><input type="number" name="quantity" value="0" min="0" data-price="2.50" class="quantity-input"></td>
+                    <td><span class="item-total">$0.00</span></td>
+                    <input type="hidden" name="item" value="Espresso">
+                </tr>
+                <tr>
+                    <td>Espresso with Milk</td>
+                    <td>$3.00</td>
+                    <td><input type="number" name="quantity" value="0" min="0" data-price="3.00" class="quantity-input"></td>
+                    <td><span class="item-total">$0.00</span></td>
+                    <input type="hidden" name="item" value="Espresso with Milk">
+                </tr>
+                <tr>
+                    <td>Flaky Pastry</td>
+                    <td>$2.00</td>
+                    <td><input type="number" name="quantity" value="0" min="0" data-price="2.00" class="quantity-input"></td>
+                    <td><span class="item-total">$0.00</span></td>
+                    <input type="hidden" name="item" value="Flaky Pastry">
+                </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <label for="total_amount">Total Amount ($):</label>
+            <input type="number" id="total_amount" name="total_amount" value="0.00" readonly>
+        </div>
+
+        <div>
+            <h3>Payment Details</h3>
+            <label for="card_name">Cardholder Name:</label>
+            <input type="text" name="card_name" required>
+            <label for="card_number">Card Number:</label>
+            <input type="text" name="card_number" required>
+            <label for="expiration_date">Expiration Date (MM/YY):</label>
+            <input type="text" name="expiration_date" required>
+            <label for="cvv">CVV:</label>
+            <input type="text" name="cvv" required>
+        </div>
+
+        <button type="submit">Place Order</button>
+    </form>
+
+    <script>
+        // Get all quantity inputs
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+        const totalAmountField = document.getElementById('total_amount');
+
+        // Function to update the total amount
+        function updateTotalAmount() {
+            let totalAmount = 0;
+
+            // Loop through all quantity inputs and calculate total amount
+            quantityInputs.forEach(input => {
+                const quantity = parseInt(input.value) || 0; // Get quantity
+                const price = parseFloat(input.getAttribute('data-price')); // Get price from data-price attribute
+                const itemTotal = quantity * price; // Calculate item total
+                input.closest('tr').querySelector('.item-total').textContent = `$${itemTotal.toFixed(2)}`; // Update item total cell
+                totalAmount += itemTotal; // Add item total to total amount
+            });
+
+            // Update the total amount field
+            totalAmountField.value = totalAmount.toFixed(2);
+        }
+
+        // Add event listeners to quantity inputs to update total amount on change
+        quantityInputs.forEach(input => {
+            input.addEventListener('input', updateTotalAmount);
+        });
+
+        // Call updateTotalAmount initially to calculate total amount when the page loads
+        updateTotalAmount();
+    </script>
+{% endblock %}
