@@ -1,0 +1,128 @@
+<!-- templates/menu.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Coffee Brew</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #6F4E37;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .menu-items {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .menu-item {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .menu-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .menu-item h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        footer {
+            background-color: #6F4E37;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div><a href="/">Coffee Brew</a></div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Our Menu</h1>
+        <p>Explore our delicious coffee and snacks!</p>
+
+        <div class="menu-items">
+            <!-- Coffee Option 1 -->
+            <div class="menu-item">
+                <img src="https://coffeemakered.com/wp-content/uploads/2018/08/what-is-an-espresso.jpg" alt="Coffee 1">
+                <h3>Espresso</h3>
+                <p>A strong, bold coffee shot served black.</p>
+                <p>$2.50</p>
+            </div>
+
+            <!-- Coffee Option 2 -->
+            <div class="menu-item">
+                <img src="https://th.bing.com/th/id/OIP.6Lb2xzBM3B6maFHPDwhw5AHaE8?rs=1&pid=ImgDetMain" alt="Coffee 2">
+                <h3>Latte</h3>
+                <p>Espresso with steamed milk and a light foam.</p>
+                <p>$3.00</p>
+            </div>
+
+            <!-- Coffee Option 3 -->
+            <div class="menu-item">
+                <img src="https://th.bing.com/th/id/R.91b8d00ad03f6adef6cf7125740d5499?rik=VCTh8vTO5EY5RQ&riu=http%3a%2f%2fwww.ffactor.com%2fwp-content%2fuploads%2f2018%2f08%2fAdobeStock_202756131.jpeg&ehk=psyxmQ%2fogP7kPf5r0bj7wwbaDI4aAwg2yCTM6AMuUuI%3d&risl=1&pid=ImgRaw&r=0" alt="Coffee 3">
+                <h3>Cappuccino</h3>
+                <p>Espresso topped with frothed milk and foam.</p>
+                <p>$3.50</p>
+            </div>
+
+            <!-- Snack Option 1 -->
+            <div class="menu-item">
+                <img src="https://img.freepik.com/premium-photo/croissant-with-chocolate-sauce-drizzled-top_875133-8.jpg?w=2000" alt="Snack 1">
+                <h3>Chocolate Croissant</h3>
+                <p>Flaky pastry with a rich chocolate filling.</p>
+                <p>$2.00</p>
+            </div>
+
+            <!-- Snack Option 2 -->
+            <div class="menu-item">
+                <img src="https://images.squarespace-cdn.com/content/v1/6062b27bf0879e197a89d192/1617486229797-91EBLIK1TNYQ6LW9X0AT/banana-blueberry-muffins.jpeg" alt="Snack 2">
+                <h3>Blueberry Muffin</h3>
+                <p>Freshly baked muffin filled with blueberries.</p>
+                <p>$2.50</p>
+            </div>
+
+            <!-- Snack Option 3 -->
+            <div class="menu-item">
+                <img src="https://www.thedailymeal.com/img/gallery/15-ways-to-upgrade-a-classic-bagel-with-cream-cheese/l-intro-1677514685.jpg" alt="Snack 3">
+                <h3>Bagel with Cream Cheese</h3>
+                <p>A soft bagel topped with rich cream cheese.</p>
+                <p>$2.75</p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Coffee Brew. All rights reserved.</p>
+    </footer>
+</body>
+</html>
