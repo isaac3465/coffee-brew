@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+        }
+
+        h1 {
+
+            text-align: center;
+
+            color: #333;
+
+        }
+
+        form {
+
+            max-width: 800px;
+
+            margin: 0 auto;
+
+            background: #fff;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-bottom: 20px;
+
+        }
+
+        th, td {
+
+            text-align: left;
+
+            padding: 10px;
+
+            border-bottom: 1px solid #ddd;
+
+        }
+
+        th {
+
+            background-color: #f4f4f4;
+
+        }
+
+        tr:hover {
+
+            background-color: #f9f9f9;
+
+        }
+
+        input[type="number"], input[type="text"] {
+
+            width: 100%;
+
+            padding: 8px;
+
+            margin-top: 5px;
+
+            margin-bottom: 10px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 5px;
+
+        }
+
+        .total-section, .payment-section {
+
+            margin-top: 20px;
+
+            padding: 10px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 5px;
+
+            background: #f9f9f9;
+
+        }
+
+        .total-section h3, .payment-section h3 {
+
+            margin-top: 0;
+
+        }
+
+        .place-order-btn {
+
+            display: block;
+
+            width: 100%;
+
+            background-color: #5cb85c;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 10px;
+
+            font-size: 18px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+        }
+
+        .place-order-btn:hover {
+
+            background-color: #4cae4c;
+
+        }
+</style>
+<h1>Order Your Favourite Coffee</h1>
+<form method="POST">
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Price</th>
+<th>Quantity</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Espresso</td>
+<td>$2.50</td>
+<td><input type="number" name="quantity_espresso" value="0" min="0" data-price="2.50" class="quantity-input"></td>
+<td><span class="item-total">$0.00</span></td>
+<input type="hidden" name="item_espresso" value="Espresso">
+</tr>
+<tr>
+<td>Espresso with Milk</td>
+<td>$3.00</td>
+<td><input type="number" name="quantity_espresso_milk" value="0" min="0" data-price="3.00" class="quantity-input"></td>
+<td><span class="item-total">$0.00</span></td>
+<input type="hidden" name="item_espresso_milk" value="Espresso with Milk">
+</tr>
+<tr>
+<td>Flaky Pastry</td>
+<td>$2.00</td>
+<td><input type="number" name="quantity_pastry" value="0" min="0" data-price="2.00" class="quantity-input"></td>
+<td><span class="item-total">$0.00</span></td>
+<input type="hidden" name="item_pastry" value="Flaky Pastry">
+</tr>
+</tbody>
+</table>
+<div class="total-section">
+<h3>Total Amount</h3>
+<label for="total_amount">Total ($):</label>
+<input type="text" id="total_amount" name="total_amount" value="0.00" readonly>
+</div>
+<div class="payment-section">
+<h3>Payment Details</h3>
+<label for="card_name">Cardholder Name:</label>
+<input type="text" id="card_name" name="card_name" placeholder="John Doe" required>
+<label for="card_number">Card Number:</label>
+<input type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456" required>
+<label for="expiration_date">Expiration Date (MM/YY):</label>
+<input type="text" id="expiration_date" name="expiration_date" placeholder="MM/YY" required>
+<label for="cvv">CVV:</label>
+<input type="text" id="cvv" name="cvv" placeholder="123" required>
+</div>
+<button type="submit" class="place-order-btn">Place Order</button>
+</form>
+<script>
+
+        // Get all quantity inputs and the total amount field
+
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+
+        const totalAmountField = document.getElementById('total_amount');
+
+        // Update the total amount whenever a quantity changes
+
+        function updateTotalAmount() {
+
+            let total = 0;
+
+            // Loop through quantity inputs
+
+            quantityInputs.forEach(input => {
+
+                const quantity = parseInt(input.value) || 0;
+
+                const price = parseFloat(input.getAttribute('data-price'));
+
+                const itemTotal = quantity * price;
+
+                // Update the individual item total
+
+                const itemTotalElement = input.closest('tr').querySelector('.item-total');
+
+                itemTotalElement.textContent = `$${itemTotal.toFixed(2)}`;
+
+                // Add item total to the grand total
+
+                total += itemTotal;
+
+            });
+
+            // Update the total amount field
+
+            totalAmountField.value = total.toFixed(2);
+
+        }
+
+        // Attach event listeners to quantity inputs
+
+        quantityInputs.forEach(input => {
+
+            input.addEventListener('input', updateTotalAmount);
+
+        });
+
+        // Initialise the total amount on page load
+
+        updateTotalAmount();
+</script>
+
+{% endblock %}
